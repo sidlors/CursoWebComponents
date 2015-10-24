@@ -1,0 +1,32 @@
+<html>
+    <title>Duke's Soccer League: List Leagues</title>
+    <body>
+        <!-- Page Heading -->
+        <table border='1' cellpadding='5' cellspacing='0'>
+            <tr bgcolor='#CCCCFF' align='center' valign='center' height='20'>
+                <td><h3>This form allows you to create a new soccer league.</h3></td>
+            </tr>
+        </table>
+        <p></p>
+        <form name="form1" method="post" action="AddLeagueServlet.do">
+            <table>
+                <tr>
+                     <td>Name: </td>
+                    <td>
+                        <input type='text' name='name' />
+                    </td>
+                </tr>
+                <tr> 
+                   <td>Year:</td>
+                    <td>
+                        <input type='text' name='year' />
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><input type='submit' value='Add League' /></td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>

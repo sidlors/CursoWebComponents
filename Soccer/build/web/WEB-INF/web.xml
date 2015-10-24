@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee           http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <welcome-file-list>
+        <welcome-file>login.jsp</welcome-file>
+    </welcome-file-list>
+    <context-param>
+        <param-name>userInitContextParam</param-name>
+        <param-value>test</param-value>
+    </context-param>
+    <context-param>
+        <param-name>passInitContextParam</param-name>
+        <param-value>test</param-value>
+    </context-param>
+    <context-param>
+        <param-name>currentLeagueName</param-name>
+        <param-value>Liga Bancomer</param-value>
+    </context-param>
+    <context-param>
+        <param-name>currentYear</param-name>
+        <param-value>2015</param-value>
+    </context-param>
+    
+    <listener>
+        <description>ServletContextListener</description>
+        <listener-class>sl314.listeners.SoccerApplicationListener</listener-class>
+    </listener>
+    
+    <servlet>
+        <servlet-name>ListLeaguesServlet</servlet-name>
+        <servlet-class>sl314.control.ListLeaguesServlet</servlet-class>
+        <init-param>
+            <param-name>adminMail</param-name>
+            <param-value>sidlors@gmail.com</param-value>
+        </init-param>
+        <init-param>
+            <param-name>mainMail</param-name>
+            <param-value>sidlord@hotmail.com</param-value>
+        </init-param>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>sl314.control.LoginServlet</servlet-class>
+        <init-param>
+            <param-name>support</param-name>
+            <param-value>support@soccer.ccom</param-value>
+        </init-param>
+    </servlet>
+    <servlet>
+        <servlet-name>AddTournamentServlet</servlet-name>
+        <servlet-class>sl314.control.AddTournamentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddTeamServlet</servlet-name>
+        <servlet-class>sl314.control.AddTeamServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListLeaguesServlet</servlet-name>
+        <url-pattern>/ListLeaguesServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/login.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddTournamentServlet</servlet-name>
+        <url-pattern>/admin/AddTournamentServlet.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddTeamServlet</servlet-name>
+        <url-pattern>/admin/AddTeamServlet.do</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <error-page>
+        <exception-type>java.lang.ArithmeticException</exception-type>
+        <location>/error.jsp</location>
+    </error-page>
+    
+    <error-page>
+        <exception-type>sl314.exception.SoccerException</exception-type>
+        <location>/soccer_error.jsp</location>
+    </error-page>
+
+    
+</web-app>

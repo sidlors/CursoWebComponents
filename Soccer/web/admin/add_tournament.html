@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+    </head>
+    <body>
+         <form name="form1" method="post" action="AddTournamentServlet.do">
+            <table>
+                <tr>
+                     <td>Division: </td>
+                    <td>
+                        <input type='text' name='division' />
+                    </td>
+                </tr>
+                <tr> 
+                   <td>Type:</td>
+                    <td>
+                        Professional <input type="radio" name="type" value="Professional" />
+                        Amateur <input type="radio" name="type" value="Amateur" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><input type='submit' value='Add Tournament' /></td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>
