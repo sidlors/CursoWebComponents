@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package sl314.test;
-
+import java.util.Properties;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -25,14 +25,13 @@ import sl314.persistencia.League;
 public class PersistenciaTest {
 
    //private LeagueJpaController control;
-    private static EntityManagerFactory factory;
-    private static EntityManager em;
+    private  EntityManagerFactory factory;
+    private  EntityManager em;
     private  League league;
 
     @BeforeClass
     public static void setUpClass() {
-        factory = Persistence.createEntityManagerFactory("SoccerPU");
-        em = factory.createEntityManager();
+        
 
     }
 
@@ -42,6 +41,21 @@ public class PersistenciaTest {
 
     @Before
     public void setUp() {
+       
+        Properties props = new Properties();
+        props.put("javax.persistence.transactionType", "RESOURCE_LOCAL");
+        props.put("javax.persistence.jtaDataSource", "");
+        props.put("javax.persistence.nonJtaDataSource", "");
+        props.put("eclipselink.jdbc.driver", "com.mysql.jdbc.Driver");
+        props.put("eclipselink.jdbc.url", "jdbc:mysql://localhost:3306/mydb");
+        props.put("eclipselink.jdbc.user", "root");
+        props.put("eclipselink.jdbc.password", "Semeolvid0");
+        //esta propiedad es para 'dropear' tablas antes de correr la prueba unitaria
+        //props.put("eclipselink.ddl-generation", "drop-and-create-tables");
+        props.put("eclipselink.logging.level", "INFO");
+        factory = Persistence.createEntityManagerFactory("SoccerPU",props);
+        em = factory.createEntityManager();
+        
         league=new League();
         league.setName("Liga MX");
         league.setYear(2000);
@@ -64,7 +78,8 @@ public class PersistenciaTest {
             etx.commit();
             em.close();
         } catch (Exception ex) {
-            ex.printStackTrace();
+            System.err.println(ex.getMessage());
+            etx.rollback();
         }
 
     }
