@@ -1,0 +1,7 @@
+language: java
+before_install:
+  - pip install --user codecov
+after_success:
+  - codecov
+service_name: travis-pro
+repo_token: ufYtq7UDfwsjd9mElzOgkND8gh7c0883E
