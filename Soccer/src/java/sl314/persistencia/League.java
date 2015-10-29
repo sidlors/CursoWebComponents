@@ -8,17 +8,22 @@ package sl314.persistencia;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Query;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.persistence.criteria.CriteriaQuery;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -49,6 +54,8 @@ public class League implements Serializable {
     private Integer year;
     @Column(name = "STATUS")
     private Integer status;
+    
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idLeague")
     private Collection<Team> teamCollection;
 
@@ -125,6 +132,23 @@ public class League implements Serializable {
     @Override
     public String toString() {
         return "sl314.persisnten.League[ idLeague=" + idLeague + " ]";
+    }
+    
+    
+     public List<League> findLeagueEntities(EntityManager em, boolean all, int maxResults, int firstResult) {
+        
+        try {
+            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+            cq.select(cq.from(League.class));
+            Query q = em.createQuery(cq);
+            if (!all) {
+                q.setMaxResults(maxResults);
+                q.setFirstResult(firstResult);
+            }
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
     }
     
 }

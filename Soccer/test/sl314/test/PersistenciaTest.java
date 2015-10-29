@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package sl314.test;
+
+import java.util.List;
 import java.util.Properties;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -81,6 +83,17 @@ public class PersistenciaTest {
             System.err.println(ex.getMessage());
             etx.rollback();
         }
+     @Test
+    public void ListLeagueTest() {
+
+       List<League> lista=league.findLeagueEntities(em,true,5,1);
+       assertNotNull(lista);
+       
+       for(League liga:lista){
+           System.out.println(liga.getIdLeague() +" "+ liga.getName());
+       }
+
+    }
 
     }
 }
