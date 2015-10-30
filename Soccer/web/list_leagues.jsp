@@ -19,7 +19,7 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach items="${soccer:retriveLeagues()}" var="league">
+                <c:forEach items="${soccer:retriveLeagues(pageContext)}" var="league">
                     <tr>
                         <td><c:out value="${league.idLeague}"/> </td>
                         <td><c:out value="${league.name}"/> </td>

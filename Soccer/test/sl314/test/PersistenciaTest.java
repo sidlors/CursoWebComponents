@@ -26,14 +26,13 @@ import sl314.persistencia.League;
  */
 public class PersistenciaTest {
 
-   //private LeagueJpaController control;
-    private  EntityManagerFactory factory;
-    private  EntityManager em;
-    private  League league;
+    //private LeagueJpaController control;
+    private EntityManagerFactory factory;
+    private EntityManager em;
+    private League league;
 
     @BeforeClass
     public static void setUpClass() {
-        
 
     }
 
@@ -43,7 +42,7 @@ public class PersistenciaTest {
 
     @Before
     public void setUp() {
-       
+
         Properties props = new Properties();
         props.put("javax.persistence.transactionType", "RESOURCE_LOCAL");
         props.put("javax.persistence.jtaDataSource", "");
@@ -55,10 +54,10 @@ public class PersistenciaTest {
         //esta propiedad es para 'dropear' tablas antes de correr la prueba unitaria
         //props.put("eclipselink.ddl-generation", "drop-and-create-tables");
         props.put("eclipselink.logging.level", "INFO");
-        factory = Persistence.createEntityManagerFactory("SoccerPU",props);
+        factory = Persistence.createEntityManagerFactory("SoccerPU", props);
         em = factory.createEntityManager();
-        
-        league=new League();
+
+        league = new League();
         league.setName("Liga MX");
         league.setYear(2000);
     }
@@ -72,9 +71,12 @@ public class PersistenciaTest {
     //
     @Test
     public void TestCreate() {
+
+        EntityTransaction etx = null;
+
         try {
-            EntityTransaction etx = em.getTransaction();
-            
+            etx = em.getTransaction();
+
             etx.begin();
             em.persist(league);
             etx.commit();
@@ -83,17 +85,19 @@ public class PersistenciaTest {
             System.err.println(ex.getMessage());
             etx.rollback();
         }
-     @Test
+    }
+
+    @Test
     public void ListLeagueTest() {
 
-       List<League> lista=league.findLeagueEntities(em,true,5,1);
-       assertNotNull(lista);
-       
-       for(League liga:lista){
-           System.out.println(liga.getIdLeague() +" "+ liga.getName());
-       }
+        List<League> lista = league.findLeagueEntities(em, true, 5, 1);
+        assertNotNull(lista);
+
+        for (League liga : lista) {
+            System.out.println(liga.getIdLeague() + " " + liga.getName());
+        }
 
     }
 
-    }
+
 }

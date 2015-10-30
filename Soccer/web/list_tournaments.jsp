@@ -17,7 +17,7 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach items="${soccer:retriveTournaments()}" var="tournament">
+                <c:forEach items="${soccer:retriveTournaments(pageContext)}" var="tournament">
                     <tr>
                         <td><c:out value="${tournament.idTournament}"/> </td>
                         <td><c:out value="${tournament.division}"/> </td>

@@ -1,6 +1,7 @@
 package sl314.control;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -45,7 +46,7 @@ public class AddTournamentServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String division = request.getParameter("division");
         String type=request.getParameter("type");
-        
+        Collection<Tournament> collectionTournaments=(Collection<Tournament>)request.getServletContext().getAttribute("collectionTournaments");
         if(type==null ){
             
             errorMsgs.add("category not selected");
@@ -72,6 +73,8 @@ public class AddTournamentServlet extends HttpServlet {
             utx.begin();
             em.persist(tournament);
             utx.commit();
+            collectionTournaments.add(tournament);
+            request.getServletContext().setAttribute("collectionTournaments",collectionTournaments);
             
         } catch (Exception ex) {
             try {
@@ -88,8 +91,7 @@ public class AddTournamentServlet extends HttpServlet {
         // Store the new league in the request-scope
         request.setAttribute("tournament", tournament);
         // Send the Success view
-        RequestDispatcher view = request.
-                getRequestDispatcher("../success.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("../success.jsp");
         view.forward(request, response);
     }
 

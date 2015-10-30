@@ -23,16 +23,16 @@
   <function>
     <name>retriveLeagues</name>
     <function-class>sl314.control.ControlRetriveObjectsDB</function-class>
-    <function-signature>List retriveLeagues()</function-signature>
+      <function-signature>List retriveLeagues(javax.servlet.jsp.PageContext)</function-signature>
   </function>
   <function>
     <name>retriveTournaments</name>
     <function-class>sl314.control.ControlRetriveObjectsDB</function-class>
-    <function-signature>List retriveTournaments()</function-signature>
+    <function-signature>List retriveTournaments(javax.servlet.jsp.PageContext)</function-signature>
   </function>
   <function>
     <name>retriveTeams</name>
     <function-class>sl314.control.ControlRetriveObjectsDB</function-class>
-    <function-signature>List retriveTeams()</function-signature>
+    <function-signature>List retriveTeams(javax.servlet.jsp.PageContext)</function-signature>
   </function>
 </taglib>

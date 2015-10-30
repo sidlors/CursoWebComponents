@@ -8,6 +8,7 @@ package sl314.control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
@@ -22,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
+import sl314.persistencia.League;
 import sl314.persistencia.Team;
 import sl314.persistencia.Tournament;
 
@@ -54,7 +56,7 @@ public class AddTeamServlet extends HttpServlet {
         String location = request.getParameter("location");
         String name = request.getParameter("name");
         String status = request.getParameter("status");
-        
+        Collection<Team> collectionTeam=(Collection<Team>)request.getServletContext().getAttribute("collectionTeams");
 
         if (!errorMsgs.isEmpty()) {
             RequestDispatcher view = request.getRequestDispatcher("soccer_error.jsp");
@@ -74,7 +76,8 @@ public class AddTeamServlet extends HttpServlet {
             utx.begin();
             em.persist(team);
             utx.commit();
-            
+             collectionTeam.add(team);
+            request.getServletContext().setAttribute("collectionTeams",collectionTeam);
         } catch (Exception ex) {
             try {
                 utx.rollback();

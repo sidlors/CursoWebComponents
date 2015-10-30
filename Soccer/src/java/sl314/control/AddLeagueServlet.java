@@ -7,6 +7,7 @@ package sl314.control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
 import java.util.LinkedList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -58,6 +59,8 @@ public class AddLeagueServlet extends HttpServlet {
         
         String strYear = request.getParameter("year");
         String name=request.getParameter("name");
+        Collection<League> collectionLeagues=(Collection<League>)request.getServletContext().getAttribute("collectionLeagues");
+                //setAttribute("collectionLeagues",collectionLeagues);
         int year=0;
         try {
             year = Integer.parseInt(strYear);
@@ -81,6 +84,9 @@ public class AddLeagueServlet extends HttpServlet {
             utx.begin();
             em.persist(league);
             utx.commit();
+            collectionLeagues.add(league);
+            request.getServletContext().setAttribute("collectionLeagues",collectionLeagues);
+            
             
         } catch (Exception ex) {
             try {
